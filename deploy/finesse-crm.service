@@ -1,0 +1,26 @@
+[Unit]
+Description=Finesse CRM - Node.js + TypeScript
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+User=finesse
+Group=finesse
+WorkingDirectory=/opt/finesse-crm
+Environment=FINESSE_DB=/var/lib/finesse-crm/finesse.sqlite3
+Environment=FINESSE_ENV=production
+Environment=FINESSE_PORT=8080
+Environment=FINESSE_HOST=127.0.0.1
+ExecStart=/usr/bin/node --experimental-strip-types /opt/finesse-crm/server/src/index.ts
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+ReadWritePaths=/var/lib/finesse-crm
+LimitNOFILE=4096
+
+[Install]
+WantedBy=multi-user.target

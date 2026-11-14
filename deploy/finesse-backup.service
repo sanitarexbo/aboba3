@@ -1,0 +1,14 @@
+[Unit]
+Description=Finesse CRM SQLite online backup
+
+[Service]
+Type=oneshot
+User=finesse
+Group=finesse
+WorkingDirectory=/opt/finesse-crm
+Environment=FINESSE_DB=/var/lib/finesse-crm/finesse.sqlite3
+Environment=FINESSE_BACKUP_DIR=/var/lib/finesse-crm/backups
+ExecStart=/usr/bin/node --experimental-strip-types /opt/finesse-crm/server/src/backup.ts
+NoNewPrivileges=true
+ProtectSystem=strict
+ReadWritePaths=/var/lib/finesse-crm
